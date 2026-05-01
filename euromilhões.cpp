@@ -84,8 +84,24 @@ int main() {
                     cin >> numeros[i];
                     if (numeros[i] < 1 || numeros[i] > 50) {
                         cout << "Número inválido! Tente novamente: ";
+                        continue;
                     }
-                } while (numeros[i] < 1 || numeros[i] > 50);
+
+                    bool repetido = false;
+
+                    for (int j = 0; j < i; j++) {
+                        if (numeros[i] == numeros[j]) {
+                            cout << "Número repetido! Digite novamente: ";
+                            repetido = true;
+                            break;
+                        }
+                    }
+
+                    if (repetido) {
+                        numeros[i] = 0;
+                    }
+
+                } while (numeros[i] < 1 || numeros[i] > 50 || numeros[i] == 0);
             }
 
             cout << "Introduza 2 estrelas (1-12): ";
@@ -94,8 +110,24 @@ int main() {
                     cin >> estrelas[i];
                     if (estrelas[i] < 1 || estrelas[i] > 12) {
                         cout << "Estrela inválida! Tente novamente: ";
+                        continue;
                     }
-                } while (estrelas[i] < 1 || estrelas[i] > 12);
+
+                    bool repetido = false;
+
+                    for (int j = 0; j < i; j++) {
+                        if (estrelas[i] == estrelas[j]) {
+                            cout << "Estrela repetida! Digite novamente: ";
+                            repetido = true;
+                            break;
+                        }
+                    }
+
+                    if (repetido) {
+                        estrelas[i] = 0;
+                    }
+
+                } while (estrelas[i] < 1 || estrelas[i] > 12 || estrelas[i] == 0);
             }
 
         } else {
