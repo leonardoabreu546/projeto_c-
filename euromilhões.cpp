@@ -5,9 +5,10 @@
 using namespace std;
 
 int main() {
-    int numeros[5];
-    int estrelas[2];
+    int numeros[10];
+    int estrelas[5];
     int opcao;
+
     
     cout << "Bem-vindo ao Euro Milhões!\n\n";
    
@@ -26,6 +27,14 @@ int main() {
             for (int i = 0; i < 5; i++) {
                 do {
                     cin >> numeros[i];
+
+                    if (cin.fail()) {
+                        cin.clear();
+                        cin.ignore(1000, '\n');
+                        cout << "Entrada inválida! Digite um número: ";
+                        numeros[i] = 0;
+                        continue;
+                    }
 
                     if (numeros[i] < 1 || numeros[i] > 50) {
                         cout << "Número inválido! Tente novamente: ";
@@ -53,6 +62,14 @@ int main() {
             for (int i = 0; i < 2; i++) {
                 do {
                     cin >> estrelas[i];
+
+                    if (cin.fail()) {
+                        cin.clear();
+                        cin.ignore(1000, '\n');
+                        cout << "Entrada inválida! Digite um número: ";
+                        estrelas[i] = 0;
+                        continue;
+                    }
 
                     if (estrelas[i] < 1 || estrelas[i] > 12) {
                         cout << "Estrela inválida! Tente novamente: ";
@@ -82,6 +99,15 @@ int main() {
             for (int i = 0; i < 5; i++) {
                 do {
                     cin >> numeros[i];
+
+                    if (cin.fail()) {
+                        cin.clear();
+                        cin.ignore(1000, '\n');
+                        cout << "Entrada inválida! Digite um número: ";
+                        numeros[i] = 0;
+                        continue;
+                    }
+
                     if (numeros[i] < 1 || numeros[i] > 50) {
                         cout << "Número inválido! Tente novamente: ";
                         continue;
@@ -108,6 +134,15 @@ int main() {
             for (int i = 0; i < 2; i++) {
                 do {
                     cin >> estrelas[i];
+
+                    if (cin.fail()) {
+                        cin.clear();
+                        cin.ignore(1000, '\n');
+                        cout << "Entrada inválida! Digite um número: ";
+                        estrelas[i] = 0;
+                        continue;
+                    }
+
                     if (estrelas[i] < 1 || estrelas[i] > 12) {
                         cout << "Estrela inválida! Tente novamente: ";
                         continue;
