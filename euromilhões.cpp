@@ -4,6 +4,22 @@
 
 using namespace std;
 
+int lerInteiro() {
+    int x;
+
+    while (true) {
+        cin >> x;
+
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Entrada inválida! Tente novamente: ";
+        } else {
+            return x;
+        }
+    }
+}
+
 int main() {
     int numeros[10];
     int estrelas[5];
@@ -26,15 +42,8 @@ int main() {
             
             for (int i = 0; i < 5; i++) {
                 do {
-                    cin >> numeros[i];
 
-                    if (cin.fail()) {
-                        cin.clear();
-                        cin.ignore(1000, '\n');
-                        cout << "Entrada inválida! Digite um número: ";
-                        numeros[i] = 0;
-                        continue;
-                    }
+                    numeros[i] = lerInteiro();
 
                     if (numeros[i] < 1 || numeros[i] > 50) {
                         cout << "Número inválido! Tente novamente: ";
@@ -61,15 +70,8 @@ int main() {
             cout << "Introduza 2 estrelas (1-12): ";
             for (int i = 0; i < 2; i++) {
                 do {
-                    cin >> estrelas[i];
 
-                    if (cin.fail()) {
-                        cin.clear();
-                        cin.ignore(1000, '\n');
-                        cout << "Entrada inválida! Digite um número: ";
-                        estrelas[i] = 0;
-                        continue;
-                    }
+                    estrelas[i] = lerInteiro();
 
                     if (estrelas[i] < 1 || estrelas[i] > 12) {
                         cout << "Estrela inválida! Tente novamente: ";
@@ -98,15 +100,8 @@ int main() {
             cout << "Introduza 5 números (1-50): ";
             for (int i = 0; i < 5; i++) {
                 do {
-                    cin >> numeros[i];
 
-                    if (cin.fail()) {
-                        cin.clear();
-                        cin.ignore(1000, '\n');
-                        cout << "Entrada inválida! Digite um número: ";
-                        numeros[i] = 0;
-                        continue;
-                    }
+                    numeros[i] = lerInteiro();
 
                     if (numeros[i] < 1 || numeros[i] > 50) {
                         cout << "Número inválido! Tente novamente: ";
@@ -133,15 +128,7 @@ int main() {
             cout << "Introduza 2 estrelas (1-12): ";
             for (int i = 0; i < 2; i++) {
                 do {
-                    cin >> estrelas[i];
-
-                    if (cin.fail()) {
-                        cin.clear();
-                        cin.ignore(1000, '\n');
-                        cout << "Entrada inválida! Digite um número: ";
-                        estrelas[i] = 0;
-                        continue;
-                    }
+                    estrelas[i] = lerInteiro();
 
                     if (estrelas[i] < 1 || estrelas[i] > 12) {
                         cout << "Estrela inválida! Tente novamente: ";
