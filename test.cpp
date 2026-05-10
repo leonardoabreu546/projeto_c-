@@ -22,49 +22,31 @@ int lerInteiro() {
 }
 
 int main() {
-    int numeros[11];
-    int estrelas[9];
+    int numeros[11];  // aumentado para suportar aposta multipla (max 11)
+    int estrelas[9];  // aumentado para suportar aposta multipla (max 9)
     int opcao;
-
-    // ✅ FIX: arrays da multipla FORA do if (muito importante)
-    int numerosm[5][11];
-    int estrelasm[5][9];
-    int numChaves = 0;
-    int qtdNumeros = 0;
-    int qtdEstrelas = 0;
-    char tipoMultipla = 'a';
 
     srand(time(0));
 
     cout << "Bem-vindo ao Euro Milhoes!\n\n";
-
+   
     char escolha;
-
-    while (true) {
-
+    
+    while (true){
+        
         cout << "Escolha S para aposta simples ou M para aposta multipla: ";
         cin >> escolha;
         escolha = tolower(escolha);
 
-        if (escolha != 's' && escolha != 'm') {
-            cout << "Opcao invalida! Tente novamente.\n\n";
-            continue;
-        }
-
-        char tipo;
-        cout << "Tipo de aposta - Manual (M) ou Automatica (A)?\n";
-        cin >> tipo;
-        tipo = tolower(tipo);
-
-        if (tipo != 'm' && tipo != 'a') {
-            cout << "Opcao invalida! Tente novamente.\n\n";
-            continue;
-        }
-
-        // ===================== APOSTA SIMPLES =====================
         if (escolha == 's') {
             cout << "Aposta Simples selecionada.\n";
 
+            char tipo;
+            cout << "Tipo de aposta - Manual (M) ou Automatica (A)?\n";
+            cin >> tipo;
+            tipo = tolower(tipo);
+
+            // ================= APOSTA AUTOMATICA =================
             if (tipo == 'a') {
 
                 for (int i = 0; i < 5; i++) {
@@ -106,12 +88,14 @@ int main() {
                 }
             }
 
+            // ================= APOSTA MANUAL =================
             else {
 
                 cout << "Introduza 5 numeros (1-50): ";
-
+            
                 for (int i = 0; i < 5; i++) {
                     do {
+
                         numeros[i] = lerInteiro();
 
                         if (numeros[i] < 1 || numeros[i] > 50) {
@@ -129,15 +113,17 @@ int main() {
                             }
                         }
 
-                        if (repetido) numeros[i] = 0;
+                        if (repetido) {
+                            numeros[i] = 0;
+                        }
 
                     } while (numeros[i] < 1 || numeros[i] > 50 || numeros[i] == 0);
                 }
-
+                
                 cout << "Introduza 2 estrelas (1-9): ";
-
                 for (int i = 0; i < 2; i++) {
                     do {
+
                         estrelas[i] = lerInteiro();
 
                         if (estrelas[i] < 1 || estrelas[i] > 9) {
@@ -155,45 +141,69 @@ int main() {
                             }
                         }
 
-                        if (repetido) estrelas[i] = 0;
+                        if (repetido) {
+                            estrelas[i] = 0;
+                        }
 
                     } while (estrelas[i] < 1 || estrelas[i] > 9 || estrelas[i] == 0);
                 }
             }
 
             cout << "Numeros escolhidos: ";
-            for (int i = 0; i < 5; i++) cout << numeros[i] << " ";
+            for (int i = 0; i < 5; i++) {
+                cout << numeros[i] << " ";
+            }
 
             cout << "\nEstrelas escolhidas: ";
-            for (int i = 0; i < 2; i++) cout << estrelas[i] << " ";
-
+            for (int i = 0; i < 2; i++) {
+                cout << estrelas[i] << " ";
+            }
             cout << "\n";
-        }
 
-        // ===================== APOSTA MULTIPLA =====================
-        else if (escolha == 'm') {
-
+        } else if (escolha == 'm') {
             cout << "Aposta Multipla selecionada.\n";
 
+            // ====== Perguntar quantas chaves (1-5) ======
+            int numChaves;
+            cout << "Quantas chaves pretende apostar? (1-5): ";
             do {
-                cout << "Quantas chaves pretende apostar? (1-5): ";
                 numChaves = lerInteiro();
+                if (numChaves < 1 || numChaves > 5) {
+                    cout << "Numero de chaves invalido! Introduza entre 1 e 5: ";
+                }
             } while (numChaves < 1 || numChaves > 5);
 
+            // ====== Perguntar quantos numeros por chave (5-11) ======
+            int qtdNumeros;
             cout << "Quantos numeros por chave? (5-11): ";
             do {
                 qtdNumeros = lerInteiro();
+                if (qtdNumeros < 5 || qtdNumeros > 11) {
+                    cout << "Quantidade invalida! Introduza entre 5 e 11: ";
+                }
             } while (qtdNumeros < 5 || qtdNumeros > 11);
 
+            // ====== Perguntar quantas estrelas por chave (2-9) ======
+            int qtdEstrelas;
             cout << "Quantas estrelas por chave? (2-9): ";
             do {
                 qtdEstrelas = lerInteiro();
+                if (qtdEstrelas < 2 || qtdEstrelas > 9) {
+                    cout << "Quantidade invalida! Introduza entre 2 e 9: ";
+                }
             } while (qtdEstrelas < 2 || qtdEstrelas > 9);
 
-            // ====== INPUT DAS CHAVES ======
-            for (int c = 0; c < numChaves; c++) {
+            char tipo;
+            cout << "Tipo de aposta - Manual (M) ou Automatica (A)?\n";
+            cin >> tipo;
+            tipo = tolower(tipo);
 
-                if (tipoMultipla == 'a') {
+            // ====== Loop por cada chave ======
+            for (int c = 1; c <= numChaves; c++) {
+                cout << "\n--- Chave " << c << " ---\n";
+
+                // ================= APOSTA AUTOMATICA =================
+                if (tipo == 'a') {
 
                     for (int i = 0; i < qtdNumeros; i++) {
                         int num;
@@ -204,14 +214,14 @@ int main() {
                             repetido = false;
 
                             for (int j = 0; j < i; j++) {
-                                if (numerosm[c][j] == num) {
+                                if (numeros[j] == num) {
                                     repetido = true;
                                     break;
                                 }
                             }
                         } while (repetido);
 
-                        numerosm[c][i] = num;
+                        numeros[i] = num;
                     }
 
                     for (int i = 0; i < qtdEstrelas; i++) {
@@ -223,62 +233,106 @@ int main() {
                             repetido = false;
 
                             for (int j = 0; j < i; j++) {
-                                if (estrelasm[c][j] == est) {
+                                if (estrelas[j] == est) {
                                     repetido = true;
                                     break;
                                 }
                             }
                         } while (repetido);
 
-                        estrelasm[c][i] = est;
+                        estrelas[i] = est;
                     }
+
                 }
 
+                // ================= APOSTA MANUAL =================
                 else {
 
-                    cout << "Numeros:\n";
+                    cout << "Introduza " << qtdNumeros << " numeros (1-50): ";
                     for (int i = 0; i < qtdNumeros; i++) {
                         do {
-                            numerosm[c][i] = lerInteiro();
-                        } while (numerosm[c][i] < 1 || numerosm[c][i] > 50);
+
+                            numeros[i] = lerInteiro();
+
+                            if (numeros[i] < 1 || numeros[i] > 50) {
+                                cout << "Numero invalido! Tente novamente: ";
+                                continue;
+                            }
+
+                            bool repetido = false;
+
+                            for (int j = 0; j < i; j++) {
+                                if (numeros[i] == numeros[j]) {
+                                    cout << "Numero repetido! Digite novamente: ";
+                                    repetido = true;
+                                    break;
+                                }
+                            }
+
+                            if (repetido) {
+                                numeros[i] = 0;
+                            }
+
+                        } while (numeros[i] < 1 || numeros[i] > 50 || numeros[i] == 0);
                     }
 
-                    cout << "Estrelas:\n";
+                    cout << "Introduza " << qtdEstrelas << " estrelas (1-9): ";
                     for (int i = 0; i < qtdEstrelas; i++) {
                         do {
-                            estrelasm[c][i] = lerInteiro();
-                        } while (estrelasm[c][i] < 1 || estrelasm[c][i] > 9);
+                            estrelas[i] = lerInteiro();
+
+                            if (estrelas[i] < 1 || estrelas[i] > 9) {
+                                cout << "Estrela invalida! Tente novamente: ";
+                                continue;
+                            }
+
+                            bool repetido = false;
+
+                            for (int j = 0; j < i; j++) {
+                                if (estrelas[i] == estrelas[j]) {
+                                    cout << "Estrela repetida! Digite novamente: ";
+                                    repetido = true;
+                                    break;
+                                }
+                            }
+
+                            if (repetido) {
+                                estrelas[i] = 0;
+                            }
+
+                        } while (estrelas[i] < 1 || estrelas[i] > 9 || estrelas[i] == 0);
                     }
                 }
-            }
 
-            // ===================== RESUMO FINAL (CORRIGIDO) =====================
-            cout << "\n========== RESUMO FINAL ==========\n";
+                cout << "Numeros escolhidos: ";
+                for (int i = 0; i < qtdNumeros; i++) {
+                    cout << numeros[i] << " ";
+                }
 
-            for (int c = 0; c < numChaves; c++) {
-
-                cout << "\nChave " << c + 1 << ":\n";
-
-                cout << "Numeros: ";
-                for (int i = 0; i < qtdNumeros; i++)
-                    cout << numerosm[c][i] << " ";
-
-                cout << "\nEstrelas: ";
-                for (int i = 0; i < qtdEstrelas; i++)
-                    cout << estrelasm[c][i] << " ";
-
+                cout << "\nEstrelas escolhidas: ";
+                for (int i = 0; i < qtdEstrelas; i++) {
+                    cout << estrelas[i] << " ";
+                }
                 cout << "\n";
             }
+
+        } else {
+            cout << "Opcao invalida!\n";
+            continue;
         }
 
         cout << "\nBoa sorte!\n";
 
-        cout << "\nDeseja fazer outra aposta?\nContinuar - 1\nSair - 2\n> ";
+        cout << "Deseja fazer outra aposta?\nContinuar-1 \n Sair-2 \n";
         cin >> opcao;
 
         if (opcao == 2) {
             cout << "Obrigado por jogar!\n";
             break;
+        }
+        
+        else if (opcao != 1) {
+            cout << "Opcao invalida!\n";
         }
     }
 
